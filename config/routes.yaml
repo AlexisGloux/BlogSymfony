@@ -1,3 +1,5 @@
+# Possibilitée de déclaré les routes dans ce fichier (exemple de syntaxe ci-dessous)
+
 #index:
 #    path: /
-#    controller: App\Controller\DefaultController::index
+#    controller: App\Controller\IndexController::index
