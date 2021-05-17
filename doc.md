@@ -34,6 +34,7 @@ composer require debug
 ```
 composer require debug --dev
 composer require doctrine/annotations
+composer require twig
 ```
 
 ### Documentation

@@ -17,4 +17,20 @@ class IndexController extends AbstractController
 
         return new Response('Bonjour</body>');
     }
+
+    /**
+     * @Route(
+     *     "/hello/{name}",
+     *     defaults={"name": "Utt"},
+     *     requirements={"name": "[a-z]*"},
+     *     methods={"GET", "POST", "PUT"}
+     * )
+     */
+    public function hello(string $name): Response
+    {
+
+        return $this->render('index/hello.html.twig', [
+            'name' => $name
+        ]);
+    }
 }
