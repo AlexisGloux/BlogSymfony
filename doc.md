@@ -1,6 +1,6 @@
 ## Commandes :
 
-### Création de projet :
+### Création d'un projet :
 
 #### Composer :
 ```
@@ -28,6 +28,10 @@ composer require debug
 
 ### Doctrine
 ```
+php bin/console doctrine:database:create
+php bin/console make:entity
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
 ```
 
 ### Dépendances ajouter dans ce projet
@@ -35,6 +39,8 @@ composer require debug
 composer require debug --dev
 composer require doctrine/annotations
 composer require twig
+composer require doctrine
+composer require make --dev
 ```
 
 ### Documentation
