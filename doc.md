@@ -30,6 +30,11 @@ composer require debug
 ```
 ```
 
+### Dépendances ajouter dans ce projet
+```
+composer require debug --dev
+composer require doctrine/annotations
+```
 
 ### Documentation
 - [Symfony](https://symfony.com/doc/current/index.html)
