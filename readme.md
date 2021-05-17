@@ -1,27 +1,34 @@
-Formation Symfony 17 - 21 mai 2021
+Formation Symfony du 17 au 21 mai 2021
 
-But de ce projet
-Ce projet a pour objectif pour partager l'éspace du travail pendant la formation Symfony, le 17 -21 mai 2021.
-Code la formation : LDDA25 - Symfony: Initiation + Approfondissement
+But de ce projet :
+
+Ce projet a pour objectif pour partager l'espace du travail pendant la formation Symfony, le 17 -21 mai 2021.
+Code de la formation : LDDA25 - Symfony: Initiation + Approfondissement
 
 Comment utiliser ce projet ?
 
-Utilitaires requis
+Utilitaires requis :
 
-PHP 7.2.5+
-Composer
+- PHP 7.2.5+
+- Composer
+- Symfony CLI (optionnel)
 
 
 1) Cloner le projet
-   git clone git@git.utt.fr:dnum-cosi/formation-symfony.git
-   cd formation-symfony
+    ```
+    git clone <project_url>
+    ```
 
 2) Installation des dépendances
-   composer install
+    ```
+    composer install
+    ```
 
 3) Démarrage/arrêt du serveur local
+   ```
    symfony serve
    symfony server:stop
+   ```
 
 Programme détaillé (LDDA25 - Symfony: Initiation + Approfondissement):
 ====================================================================================    
