@@ -79,4 +79,31 @@ class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Post $post): Response
+    {
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->getDoctrine()->getManager()->flush();
+
+                $this->addFlash('success','Post édité avec succès'.' ('.$post->getTitle().')');
+                return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+            } catch (\Exception $e) {
+                $this->addFlash('error',$e->getMessage());
+                return $this->redirectToRoute('post_edit', ['id' => $post->getId()]);
+            }
+        }
+
+        return $this->render('post/edit.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
 }

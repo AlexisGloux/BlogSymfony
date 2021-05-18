@@ -30,6 +30,7 @@
                         <p class="card-text">{{ post.body }}</p>
                         <p class="">{{ post.createdAt | date("d/m/Y") }}</p>
                         <a class="btn btn-sm btn-info" href="{{ path('post_show', {'id': post.id}) }}">Détails</a>
+                        <a class="btn btn-sm btn-success" href="{{ path('post_edit', {'id': post.id}) }}">Editer</a>
                     </div>
                 </div>
             {% endfor %}
