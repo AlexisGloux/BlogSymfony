@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Author;
 use App\Repository\AuthorRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +30,9 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="author_show")
+     * @Route("/{id}", name="author_show", requirements={"id":"\d+"})
+     * @param string $id
+     * @param PostRepository $postRepository
      * @return Response
      */
     public function show(string $id, PostRepository $postRepository): Response
