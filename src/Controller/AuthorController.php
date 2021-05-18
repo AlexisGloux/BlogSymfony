@@ -31,14 +31,14 @@ class AuthorController extends AbstractController
 
     /**
      * @Route("/{id}", name="author_show", requirements={"id":"\d+"})
-     * @param string $id
+     * @param int $id
      * @param PostRepository $postRepository
      * @return Response
      */
-    public function show(string $id, PostRepository $postRepository): Response
+    public function show(int $id, PostRepository $postRepository): Response
     {
         return $this->render('author/show.html.twig', [
-            'articles' => $postRepository->findAllArticlesByAuthorId($id),
+            'articles' => $postRepository->findBy(['writtenBy' => $id]),
         ]);
     }
 

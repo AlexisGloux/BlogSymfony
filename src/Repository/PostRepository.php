@@ -41,19 +41,4 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /**
-     * @param integer $id
-     * @return int|mixed[]|string
-     */
-    public function findAllArticlesByAuthorId(int $id)
-    {
-        return $this->createQueryBuilder('p')
-            ->innerJoin('App\Entity\Author', 'a', 'WITH','p.writtenBy = a.id')
-            ->where('a.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getArrayResult()
-            ;
-    }
-
 }
