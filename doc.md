@@ -45,6 +45,7 @@ composer require sensio/framework-extra-bundle
 composer require symfony/form
 composer require symfony/security-csrf
 composer require validator
+composer require asset
 ```
 
 ### Documentation
