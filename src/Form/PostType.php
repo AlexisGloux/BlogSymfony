@@ -22,9 +22,6 @@ class PostType extends AbstractType
             ->add('body', TextareaType::class, [
                 'required' => true
             ])
-            ->add('createdAt', null, [
-                'required' => true
-            ])
         ;
     }
 
