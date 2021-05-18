@@ -7,10 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class PostController
+ * @package App\Controller
+ * @Route("/post", methods="GET")
+ */
 class PostController extends AbstractController
 {
     /**
-     * @Route("/post", name="post")
+     * @Route("/", name="post")
      */
     public function index(PostRepository $postRepository): Response
     {
@@ -20,7 +25,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", name="post_show", requirements={"id":"\d+"})
+     * @Route("/{id}", name="post_show", requirements={"id":"\d+"})
      */
     public function show(int $id, PostRepository $postRepository): Response
     {
