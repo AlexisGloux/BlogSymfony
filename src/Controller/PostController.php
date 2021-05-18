@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -44,4 +46,36 @@ class PostController extends AbstractController
             'post' => $post,
         ]);
     }
+
+    /**
+     * @Route("/new", name="post_new", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function new(Request $request): Response
+    {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($post);
+                $entityManager->flush();
+
+                $this->addFlash('success','Post ajouté avec succès'.' ('.$post->getTitle().')');
+                return $this->redirectToRoute('post_index');
+            } catch (\Exception $e) {
+                $this->addFlash('error',$e->getMessage());
+                return $this->redirectToRoute('post_new');
+            }
+        }
+
+        return $this->render('post/new.html.twig', [
+            'post' => $post,
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

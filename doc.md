@@ -42,6 +42,7 @@ composer require twig
 composer require doctrine
 composer require make --dev
 composer require sensio/framework-extra-bundle
+composer require symfony/form
 ```
 
 ### Documentation
