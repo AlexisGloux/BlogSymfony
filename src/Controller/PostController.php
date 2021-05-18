@@ -105,5 +105,29 @@ class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/{id}", name="post_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Post $post
+     * @return Response
+     */
+    public function delete(Request $request, Post $post): Response
+    {
+        try {
+            if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($post);
+                $entityManager->flush();
+                $this->addFlash('success','Post supprimé avec succès'.' ('.$post->getTitle().')');
+            }
+        } catch (\Exception $e) {
+            $this->addFlash('error',$e->getMessage());
+            return $this->redirectToRoute('psot_show', ['id' => $post->getId()]);
+        }
+
+        return $this->redirectToRoute('post_index');
+    }
+
+
 
 }
