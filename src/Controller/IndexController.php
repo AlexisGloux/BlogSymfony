@@ -25,6 +25,8 @@ class IndexController extends AbstractController
      *     requirements={"name": "[a-z]*"},
      *     methods={"GET", "POST", "PUT"}
      * )
+     * @param string $name
+     * @return Response
      */
     public function hello(string $name): Response
     {

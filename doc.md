@@ -41,6 +41,7 @@ composer require doctrine/annotations
 composer require twig
 composer require doctrine
 composer require make --dev
+composer require sensio/framework-extra-bundle
 ```
 
 ### Documentation
