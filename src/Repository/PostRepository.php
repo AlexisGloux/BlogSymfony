@@ -30,6 +30,9 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return int|mixed|string
+     */
     public function findLatest2(){
         return $this->createQueryBuilder('p')
             ->orderBy('p.createdAt', 'DESC')
@@ -38,32 +41,19 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param integer $id
+     * @return int|mixed[]|string
+     */
+    public function findAllArticlesByAuthorId(int $id)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->innerJoin('App\Entity\Author', 'a', 'WITH','p.writtenBy = a.id')
+            ->where('a.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getArrayResult()
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

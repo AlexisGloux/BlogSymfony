@@ -20,7 +20,7 @@ class AuthorRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Author[] Returns an array of Author objects
+    //  * @return AuthorControlleur[] Returns an array of AuthorControlleur objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class AuthorRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Author
+    public function findOneBySomeField($value): ?AuthorControlleur
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

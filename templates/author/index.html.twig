@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="jumbotron text-center">
+            <h3>Tous les auteur</h3>
+        </div>
+
+        <div class="col-12">
+            {% for author in authors %}
+                <div class="card text-center col-6 m-auto">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ author.name }}</h5>
+                        <p class="card-text">{{ author.email }}</p>
+                        <a class="btn btn-sm btn-info" href="{{ path('author_show', {'id': author.id}) }}">Vois tous ses articles</a>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun article</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
