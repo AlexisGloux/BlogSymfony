@@ -12,7 +12,7 @@
             <div class="card col-6 m-auto">
                 <div class="card-body">
                     <p class="card-text">{{ post.body }}</p>
-                    <p class="">{{ post.createdAt | date("d/m/Y") }}</p>
+                    <p class="">Ecrit par {{ post.writtenBy.name }}, le {{ post.createdAt | date("d/m/Y") }}</p>
                 </div>
             </div>
             <a class="btn btn-sm btn-warning mt-2" href="{{ path('post_index') }}">Retour</a>
