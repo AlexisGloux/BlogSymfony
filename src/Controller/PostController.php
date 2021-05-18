@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="post")
+     * @Route("/", name="post_index")
      * @param PostRepository $postRepository
      * @return Response
      */
