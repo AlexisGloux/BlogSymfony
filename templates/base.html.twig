@@ -15,5 +15,8 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+    <aside>
+        {{ render_esi(controller('App\\Controller\\PostController::stat')) }}
+    </aside>
     </body>
 </html>

@@ -129,5 +129,10 @@ class PostController extends AbstractController
     }
 
 
+    public function stat(PostRepository $postRepository){
+        return $this->render('post/stat.html.twig', [
+            'post_count' => $postRepository->count([])
+        ]);
+    }
 
 }
