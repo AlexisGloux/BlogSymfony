@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @BodyLongerThenTitle()
  */
 class Post
@@ -138,5 +139,14 @@ class Post
     public function isBodyTwiceAsLongAsTile(): bool
     {
         return strlen($this->body) >= 2 * strlen($this->title);
+    }
+
+    // Action avant de persist une instance de Post
+    /**
+     * @ORM\PrePersist()
+     */
+    public function initCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
     }
 }

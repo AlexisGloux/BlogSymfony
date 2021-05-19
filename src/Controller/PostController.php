@@ -63,7 +63,6 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $entityManager = $this->getDoctrine()->getManager();
-                $post->setCreatedAt(new \DateTime());
 
                 $entityManager->persist($post);
                 $entityManager->flush();
