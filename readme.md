@@ -29,6 +29,7 @@ Utilitaires requis :
    symfony serve
    symfony server:stop
    ```
+#### Plus de détail concernant les commandes utilisées dans "doc.md"
 
 Programme détaillé (LDDA25 - Symfony: Initiation + Approfondissement):
 ====================================================================================    

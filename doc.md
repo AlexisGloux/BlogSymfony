@@ -14,27 +14,23 @@ symfony new my_project_name --full
 symfony new my_project_name
 ```
 
-### Server locale
+### Serveur locale
 ```
 symfony serve
 symfony server:stop
-```
-
-### Composer
-```
-composer require <nom_du_package>
-composer require debug
 ```
 
 ### Doctrine
 ```
 php bin/console doctrine:database:create
 php bin/console make:entity
+php bin/console make:form
+php bin/console make:controller
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 ```
 
-### Dépendances ajouter dans ce projet
+### Dépendances ajoutées dans ce projet
 ```
 composer require debug --dev
 composer require doctrine/annotations

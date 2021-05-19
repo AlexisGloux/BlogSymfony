@@ -87,7 +87,9 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post): Response
     {
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, [
+            'with_author' => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
