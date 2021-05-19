@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Author;
-use App\Entity\Keyword;
 use App\Entity\Post;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,12 +24,15 @@ class PostType extends AbstractType
             ->add('body', TextareaType::class, [
                 'required' => true
             ])
-            ->add('keywords', EntityType::class,[
-                'class' => Keyword::class,
-                'multiple' => true,
-                'expanded' => true,
-                'required' => false
-            ]);
+            ->add('keywords', CollectionType::class,[
+                'entry_type' => KeywordType::class,
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+            ])
+        ;
 
         // Gestion du formulaire suivant des options (déclarer dans configureOptions())
         if ($options['with_author']){

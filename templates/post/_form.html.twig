@@ -1,4 +1,32 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.body) }}
+
+    <div>
+        {{ form_errors(form.keywords) }}
+        {{ form_label(form.keywords) }}
+        {{ form_widget(form.keywords) }}
+        <button type="button" class="btn btn-sm btn-success add-keyword">Ajouter</button>
+        <script>
+            {# Ajout d'un keyword a un article directement dans le form #}
+            {# https://symfony.com/doc/current/form/form_collections.html#allowing-new-tags-with-the-prototype #}
+            document.addEventListener('DOMContentLoaded', function (){
+                const keywordCollection = document.querySelector('#post_keywords');
+                const addKeywordBtn = document.querySelector('button.add-keyword');
+                keywordCollection.dataset.index = keywordCollection.children.length; // Pour pouvoir ajouter plusieurs keyword en 1 temps, il faut incrémenter l'index (pas fait ici)
+
+                addKeywordBtn.addEventListener('click', function () {
+                    const prototype = keywordCollection.dataset.prototype;
+                    const newForm = prototype.replace(/__name__/g, keywordCollection.dataset.index);
+
+                    const wrapper = document.createElement('div');
+                    wrapper.innerHTML = newForm;
+                    keywordCollection.appendChild(wrapper);
+                });
+            });
+        </script>
+    </div>
+
 <button class="btn btn-sm btn-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

@@ -62,6 +62,7 @@ class PostController extends AbstractController
             try {
                 $entityManager = $this->getDoctrine()->getManager();
                 $post->setCreatedAt(new \DateTime());
+
                 $entityManager->persist($post);
                 $entityManager->flush();
 
