@@ -18,6 +18,7 @@
         {% block body %}{% endblock %}
     </body>
     <footer>
+        {{ include('layout/footer.html.twig') }}
         {{ render_esi(controller('App\\Controller\\PostController::stat')) }}
     </footer>
 </html>

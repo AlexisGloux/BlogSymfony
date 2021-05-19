@@ -113,6 +113,25 @@ class PostController extends AbstractController
     }
 
     /**
+     * @Route("/search", name="post_search")
+     * @param Request $request
+     * @param PostRepository $postRepository
+     * @return Response
+     */
+    public function search(Request $request,PostRepository $postRepository): Response
+    {
+        $keywordName = $request->query->get('q');
+        $posts = [];
+
+        if ($keywordName)
+            $posts = $postRepository->findByKeywordName($keywordName);
+
+        return $this->render('post/search.html.twig', [
+            'posts' => $posts
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="post_delete", methods={"DELETE"})
      * @param Request $request
      * @param Post $post
@@ -135,8 +154,8 @@ class PostController extends AbstractController
         return $this->redirectToRoute('post_index');
     }
 
-
-    public function stat(PostRepository $postRepository){
+    public function stat(PostRepository $postRepository): Response
+    {
         return $this->render('post/stat.html.twig', [
             'post_count' => $postRepository->count([])
         ]);

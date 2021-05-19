@@ -41,4 +41,18 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param string $keywordName
+     * @return int|mixed|string
+     */
+    public function findByKeywordName(string $keywordName)
+    {
+        return $this->createQueryBuilder('post')
+            ->join('post.keywords', 'keyword')
+            ->andWhere('keyword.name LIKE :name')
+            ->getQuery()
+            ->setParameter('name', $keywordName.'%')
+            ->getResult();
+    }
+
 }
