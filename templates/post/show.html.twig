@@ -13,6 +13,12 @@
                 <div class="card-body">
                     <p class="card-text">{{ post.body }}</p>
                     <p class="">Ecrit par {{ post.writtenBy.name }}, le {{ post.createdAt | date("d/m/Y") }}</p>
+                    <hr>
+                    <p>Mots clés :
+                        {% for keyword in post.keywords %}
+                            {{ keyword.name }} ({{ keyword.posts | length }}){% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
             <a class="btn btn-sm btn-warning mt-2" href="{{ path('post_index') }}">Retour</a>
