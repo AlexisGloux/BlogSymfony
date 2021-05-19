@@ -27,21 +27,27 @@
             <a class="btn btn-sm btn-primary" href="{{ path('post_search') }}">Rechercher un article</a>
         </div>
 
-        <div class="col-12">
-            {% for post in posts %}
-                <div class="card text-center col-6 m-auto">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.body }}</p>
-                        <p class="">{{ post.createdAt | date("d/m/Y") }}</p>
-                        <a class="btn btn-sm btn-info" href="{{ path('post_show', {'id': post.id}) }}">Détails</a>
-                        <a class="btn btn-sm btn-success" href="{{ path('post_edit', {'id': post.id}) }}">Editer</a>
-                        <div class="mt-1">{{ include('post/_delete_form.html.twig') }}</div>
-                    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    {% for post in posts %}
+                        <div class="post-preview">
+                            <a href="{{ path('post_show', {'id': post.id}) }}">
+                                <h2 class="post-title">{{ post.title }}</h2>
+                                <h3 class="post-subtitle">{{ post.body }}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posté par {{ post.id }} le {{ post.createdAt | date("d/m/Y") }}
+                            </p>
+                        </div>
+                        <hr />
+                    {% else %}
+                        <div class="post-preview">
+                            <p>Aucun article</p>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% else %}
-                <p>Aucun article</p>
-            {% endfor %}
+            </div>
         </div>
 
         {% if posts | length is divisible by(2) %}
