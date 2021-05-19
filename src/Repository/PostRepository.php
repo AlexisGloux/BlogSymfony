@@ -48,6 +48,7 @@ class PostRepository extends ServiceEntityRepository
     public function findByKeywordName(string $keywordName)
     {
         return $this->createQueryBuilder('post')
+            ->addSelect('keyword')
             ->join('post.keywords', 'keyword')
             ->andWhere('keyword.name LIKE :name')
             ->getQuery()

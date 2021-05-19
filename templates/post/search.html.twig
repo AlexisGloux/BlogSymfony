@@ -22,6 +22,11 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>
                         <p class="card-text">{{ post.body }}</p>
+                        <p>Match keyword :
+                            {% for keyword in post.keywords %}
+                                {{ keyword }}
+                            {% endfor %}
+                        </p>
                         <p class="">{{ post.createdAt | date("d/m/Y") }}</p>
                         <a class="btn btn-sm btn-info" href="{{ path('post_show', {'id': post.id}) }}">Détails</a>
                     </div>
