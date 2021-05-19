@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\PostSearcher;
+use App\Service\PostSearcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -115,19 +117,15 @@ class PostController extends AbstractController
     /**
      * @Route("/search", name="post_search")
      * @param Request $request
-     * @param PostRepository $postRepository
+     * @param PostSearcher $postSearcher
      * @return Response
      */
-    public function search(Request $request,PostRepository $postRepository): Response
+    public function search(Request $request,PostSearcherInterface $postSearcher): Response
     {
         $keywordName = $request->query->get('q');
-        $posts = [];
-
-        if ($keywordName)
-            $posts = $postRepository->findByKeywordName($keywordName);
 
         return $this->render('post/search.html.twig', [
-            'posts' => $posts
+            'posts' => $postSearcher->search($keywordName)
         ]);
     }
 
