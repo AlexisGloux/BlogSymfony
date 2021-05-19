@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use App\Validator\BodyLongerThenTitle;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @BodyLongerThenTitle()
  */
 class Post
 {
@@ -131,7 +133,7 @@ class Post
     }
 
     /**
-     * @Assert\IsTrue(message="Le contenue doit être 2 fois plus long que le titre (accesseur)")
+     * @Assert\IsTrue(message="Le contenu doit être 2 fois plus long que le titre (accesseur)")
      */
     public function isBodyTwiceAsLongAsTile(): bool
     {

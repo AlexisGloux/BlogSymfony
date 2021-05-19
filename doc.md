@@ -27,6 +27,7 @@ php bin/console make:entity
 php bin/console make:form
 php bin/console make:controller
 php bin/console make:migration
+php bin/console make:validator
 php bin/console doctrine:migrations:migrate
 ```
 
