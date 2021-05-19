@@ -23,6 +23,7 @@ class AuthorController extends AbstractController
 
     /**
      * @Route("/", name="author_index")
+     * @param AuthorRepository $authorRepository
      * @return Response
      */
     public function index(AuthorRepository $authorRepository): Response
@@ -36,12 +37,15 @@ class AuthorController extends AbstractController
      * @Route("/{id}", name="author_show", requirements={"id":"\d+"})
      * @param int $id
      * @param PostRepository $postRepository
+     * @param AuthorRepository $authorRepository
      * @return Response
      */
-    public function show(int $id, PostRepository $postRepository): Response
+    public function show(int $id, PostRepository $postRepository, AuthorRepository $authorRepository): Response
     {
+
         return $this->render('author/show.html.twig', [
             'articles' => $postRepository->findBy(['writtenBy' => $id]),
+            'author' => $authorRepository->find(['id' => $id])
         ]);
     }
 

@@ -5,7 +5,10 @@
     <div class="container">
 
         <div class="jumbotron text-center">
-            <h3>Tous les articles de l'auteur : </h3>
+            <h3>Tous les articles de "{{ author.name }}"</h3>
+            {% if author.email is not null %}
+                <p>{{ author.email }}</p>
+            {% endif %}
         </div>
 
         <div class="col-12">
