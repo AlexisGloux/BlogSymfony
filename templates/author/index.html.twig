@@ -8,6 +8,24 @@
             <h3>Tous les auteurs</h3>
         </div>
 
+        <div class="col-md-6 m-auto">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    <h6><b>Une erreur est survenue</b></h6>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-lg-3 ml-auto text-right">
+            <a class="btn btn-sm btn-primary pull-right" href="{{ path('author_new') }}">Ajouter un auteur</a>
+        </div>
+
         <div class="col-12">
             {% for author in authors %}
                 <div class="card text-center col-6 m-auto">

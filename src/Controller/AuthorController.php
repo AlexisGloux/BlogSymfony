@@ -4,9 +4,12 @@
 namespace App\Controller;
 
 
+use App\Entity\Author;
+use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,6 +42,37 @@ class AuthorController extends AbstractController
     {
         return $this->render('author/show.html.twig', [
             'articles' => $postRepository->findBy(['writtenBy' => $id]),
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="author_new", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function new(Request $request): Response
+    {
+        $aut = new Author();
+        $form = $this->createForm(AuthorType::class, $aut);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($aut);
+                $entityManager->flush();
+
+                $this->addFlash('success','Auteur ajouté avec succès'.' ('.$aut->getName().')');
+                return $this->redirectToRoute('author_index');
+            } catch (\Exception $e) {
+                $this->addFlash('error',$e->getMessage());
+                return $this->redirectToRoute('author_new');
+            }
+        }
+
+        return $this->render('author/new.html.twig', [
+            'auteur' => $aut,
+            'form' => $form->createView(),
         ]);
     }
 
