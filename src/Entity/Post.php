@@ -129,4 +129,12 @@ class Post
 
         return $this;
     }
+
+    /**
+     * @Assert\IsTrue(message="Le contenue doit être 2 fois plus long que le titre (accesseur)")
+     */
+    public function isBodyTwiceAsLongAsTile(): bool
+    {
+        return strlen($this->body) >= 2 * strlen($this->title);
+    }
 }
