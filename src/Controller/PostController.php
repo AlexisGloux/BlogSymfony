@@ -55,7 +55,9 @@ class PostController extends AbstractController
     public function new(Request $request): Response
     {
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, [
+            'validation_groups' => ['published'],
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

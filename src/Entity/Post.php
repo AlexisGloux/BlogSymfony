@@ -30,7 +30,7 @@ class Post
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=10)
+     * @Assert\Length(min=10, groups="published")
      */
     private $body;
 
