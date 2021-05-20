@@ -33,6 +33,7 @@
                         <h5 class="card-title">{{ author.name }}</h5>
                         <p class="card-text">{{ author.email }}</p>
                         <a class="btn btn-sm btn-info" href="{{ path('author_show', {'id': author.id}) }}">Vois tous ses articles</a>
+                        <a class="btn btn-sm btn-success" href="{{ path('author_edit', {'id': author.id}) }}">Editer</a>
                     </div>
                 </div>
             {% else %}

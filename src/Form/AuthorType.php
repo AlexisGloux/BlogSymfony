@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Author;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,9 +19,10 @@ class AuthorType extends AbstractType
             ->add('name', null, [
                 'required' => true
             ])
-            ->add('email', null, [
+            ->add('email', EmailType::class, [
                 'required' => false
             ])
+            ->add('user', UserType::class)
         ;
     }
 
