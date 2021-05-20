@@ -105,10 +105,10 @@ class PostController extends AbstractController
     /**
      * @Route("/search", name="post_search")
      * @param Request $request
-     * @param PostSearcher $postSearcher
+     * @param PostSearcherInterface $postSearcher
      * @return Response
      */
-    public function search(Request $request,PostSearcherInterface $postSearcher): Response
+    public function search(Request $request, PostSearcherInterface $postSearcher): Response
     {
         $keywordName = $request->query->get('q');
 
