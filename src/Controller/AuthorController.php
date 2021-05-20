@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Author;
+use App\Entity\Post;
 use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
 use App\Repository\PostRepository;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AuthorController
  * @package App\Controller
- * @Route("/author", methods="GET")
+ * @Route("", methods="GET")
  */
 class AuthorController extends AbstractController
 {
@@ -46,6 +47,25 @@ class AuthorController extends AbstractController
         return $this->render('author/show.html.twig', [
             'articles' => $postRepository->findBy(['writtenBy' => $id]),
             'author' => $authorRepository->find(['id' => $id])
+        ]);
+    }
+
+
+    /**
+     * @Route("/post/{id}", name="post_show", requirements={"id":"\d+"})
+     * @param Post $post
+     * @return Response
+     */
+    public function showPost(Post $post): Response
+    {
+//        $post = $postRepository->findOneBy(['id' => $id]);
+//
+//        // Si l'id du post n'existe pas -> err 404
+//        if (!$post)
+//            throw $this->createNotFoundException('Article '.$id.' non trouvé');
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post,
         ]);
     }
 
