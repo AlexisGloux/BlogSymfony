@@ -33,24 +33,12 @@ class PostType extends AbstractType
                 'allow_delete' => true,
             ])
         ;
-
-        // Gestion du formulaire suivant des options (déclarer dans configureOptions())
-        if ($options['with_author']){
-            $builder
-                ->add('writtenBy', null, [
-                    'class' => Author::class,
-                    'required' => true
-                ])
-            ;
-        }
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
-            'with_author' => true,
+            'data_class' => Post::class
         ]);
     }
 

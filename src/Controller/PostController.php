@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\AuthorRepository;
 use App\Repository\PostRepository;
 use App\Service\PostSearcher;
 use App\Service\PostSearcherInterface;
@@ -42,13 +43,18 @@ class PostController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, AuthorRepository $authorRepository): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post, [
             'validation_groups' => ['published'],
         ]);
         $form->handleRequest($request);
+
+        // Gestion du User automatiquement
+        $user = $this->getUser();
+        $author = $authorRepository->findOneBy(['user' => $user]);
+        $post->setWrittenBy($author);
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
@@ -79,9 +85,7 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post): Response
     {
-        $form = $this->createForm(PostType::class, $post, [
-            'with_author' => false
-        ]);
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
