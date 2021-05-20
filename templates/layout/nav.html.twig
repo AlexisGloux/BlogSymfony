@@ -4,5 +4,12 @@
             <a class="nav-item nav-link" href="{{ path('post_index') }}">Posts</a>
             <a class="nav-item nav-link" href="{{ path('author_index') }}">Auteurs</a>
         </div>
+        <div class="navbar-nav ml-auto">
+            {% if app.user %}
+                <a class="nav-item nav-link pull-right" href="{{ path('app_logout') }}">Se déconnecter</a>
+            {% else %}
+                <a class="nav-item nav-link" href="{{ path('app_login') }}">Se connecter</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
