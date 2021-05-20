@@ -83,8 +83,14 @@ class PostController extends AbstractController
      * @param Post $post
      * @return Response
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Request $request, Post $post, AuthorRepository $authorRepository): Response
     {
+        $user = $this->getUser();
+        $author = $authorRepository->findOneBy(['user' => $user]);
+
+        if ($author !== $post->getWrittenBy())
+            throw $this->createAccessDeniedException('Ce n\'est pas votre article');
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
