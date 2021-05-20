@@ -29,6 +29,7 @@ php bin/console make:controller
 php bin/console make:migration
 php bin/console make:validator
 php bin/console doctrine:migrations:migrate
+php bin/console make:user
 ```
 
 ### Dépendances ajoutées dans ce projet
