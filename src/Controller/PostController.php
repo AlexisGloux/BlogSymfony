@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * Class PostController
  * @package App\Controller
  * @Route("/admin", methods="GET")
- * @isGranted("ROLE_ADMIN")
+ * @IsGranted("ROLE_ADMIN")
  */
 class PostController extends AbstractController
 {
@@ -82,15 +82,10 @@ class PostController extends AbstractController
      * @param Request $request
      * @param Post $post
      * @return Response
+     * @IsGranted("POST_EDIT", subject="post")
      */
-    public function edit(Request $request, Post $post, AuthorRepository $authorRepository): Response
+    public function edit(Request $request, Post $post): Response
     {
-        $user = $this->getUser();
-        $author = $authorRepository->findOneBy(['user' => $user]);
-
-        if ($author !== $post->getWrittenBy())
-            throw $this->createAccessDeniedException('Ce n\'est pas votre article');
-
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 

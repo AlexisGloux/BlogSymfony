@@ -31,6 +31,7 @@ php bin/console make:migration
 php bin/console make:validator
 php bin/console make:user
 php bin/console make:auth
+php bin/console make:voter
 ```
 
 ### Dépendances ajoutées dans ce projet
