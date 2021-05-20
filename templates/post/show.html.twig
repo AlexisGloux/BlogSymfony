@@ -21,6 +21,9 @@
                     </p>
                 </div>
             </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-sm btn-success" href="{{ path('post_edit', {'id': post.id}) }}">Editer</a>
+            {% endif %}
             <a class="btn btn-sm btn-warning mt-2" href="{{ path('post_index') }}">Retour</a>
         </div>
     </div>

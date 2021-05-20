@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AuthorController
  * @package App\Controller
- * @Route("", methods="GET")
+ * @Route("/", methods="GET")
  */
 class AuthorController extends AbstractController
 {
@@ -97,6 +97,13 @@ class AuthorController extends AbstractController
         return $this->render('author/new.html.twig', [
             'auteur' => $aut,
             'form' => $form->createView(),
+        ]);
+    }
+
+    public function stat(PostRepository $postRepository): Response
+    {
+        return $this->render('post/stat.html.twig', [
+            'post_count' => $postRepository->count([])
         ]);
     }
 

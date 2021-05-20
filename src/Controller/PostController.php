@@ -11,11 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class PostController
  * @package App\Controller
  * @Route("/admin", methods="GET")
+ * @isGranted("ROLE_ADMIN")
  */
 class PostController extends AbstractController
 {
@@ -26,6 +28,10 @@ class PostController extends AbstractController
      */
     public function index(PostRepository $postRepository): Response
     {
+        // Possibilitée de gérer l'acces aux pages avec les roles
+        //$this->denyAccessUnlessGranted('ROLE_USER');
+        //throw $this->createAccessDeniedException(''); // création d'exception
+
         return $this->render('post/index.html.twig', [
             'posts' => $postRepository->findLatest2(),
         ]);
@@ -132,13 +138,6 @@ class PostController extends AbstractController
         }
 
         return $this->redirectToRoute('post_index');
-    }
-
-    public function stat(PostRepository $postRepository): Response
-    {
-        return $this->render('post/stat.html.twig', [
-            'post_count' => $postRepository->count([])
-        ]);
     }
 
 }
