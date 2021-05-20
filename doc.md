@@ -23,13 +23,14 @@ symfony server:stop
 ### Doctrine
 ```
 php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
 php bin/console make:entity
 php bin/console make:form
 php bin/console make:controller
 php bin/console make:migration
 php bin/console make:validator
-php bin/console doctrine:migrations:migrate
 php bin/console make:user
+php bin/console make:auth
 ```
 
 ### Dépendances ajoutées dans ce projet
