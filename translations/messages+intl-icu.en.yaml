@@ -1,0 +1,32 @@
+#post.new.sucess: Post ajouté avec succès     #Syntaxe en ligne, ci dessous syntaxe avec les clés (si les clé sont séparé par un '.' dans le php)
+
+app:
+    action:
+        back: Back
+        edit: Edit
+
+
+
+post:
+    new:
+        success: Post add with success
+
+    show:
+        written_by: Write by {name}, at {date, date, dd MMM YYYY}
+
+    stat: >-
+        {count, plural,
+            =0 {There are no article for the moment}
+            one {There is only on article}
+            other {There are # articles}
+        }
+
+    field:
+        title:
+            label: Title
+        body:
+            label: Content
+        keywords:
+            label: Keywords
+        name:
+            label: Keywords name

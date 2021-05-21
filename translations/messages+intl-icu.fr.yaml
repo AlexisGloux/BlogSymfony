@@ -12,7 +12,7 @@ post:
         success: Post ajouté avec succès
 
     show:
-        written_by: Écrit par {name}, le {date}
+        written_by: Écrit par {name}, le {date, date, dd MMM YYYY}
 
     stat: >-
         {count, plural,

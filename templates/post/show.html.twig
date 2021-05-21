@@ -20,7 +20,7 @@
                     {# Traduction d'un chaine comportant des variables #}
                     <p class="">{{ 'post.show.written_by' | trans({
                             'name': post.writtenBy.name,
-                            'date': post.createdAt.date | date("d/m/Y"),
+                            'date': post.createdAt,
                         }) }}
                     </p>
 
