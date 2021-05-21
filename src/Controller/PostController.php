@@ -28,8 +28,10 @@ class PostController extends AbstractController
      * @param PostRepository $postRepository
      * @return Response
      */
-    public function index(PostRepository $postRepository): Response
+    public function index(PostRepository $postRepository, Request $request): Response
     {
+        $locale = $request->getLocale();
+
         // Possibilitée de gérer l'acces aux pages avec les roles
         //$this->denyAccessUnlessGranted('ROLE_USER');
         //throw $this->createAccessDeniedException(''); // création d'exception
