@@ -135,6 +135,7 @@ class PostController extends AbstractController
 
         return $this->render('post/api.html.twig', [
             'content' => $client->random(),
+            'content2' => $client->search(35,50)
         ]);
     }
 

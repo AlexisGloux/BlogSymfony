@@ -27,8 +27,27 @@ class PunkApiClient
 
     public function random()
     {
-        $response = $this->client->request('GET', $this->endpoint.'/beers/random');
         try {
+            $response = $this->client->request('GET', $this->endpoint.'/beers/random');
+
+            if ($response->getStatusCode() >= 400)
+                throw new \Exception('Erreur');
+
+            return json_decode($response->getContent());
+        } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function search(int $ibuMin = 0, int $ibuMax = 100)
+    {
+        $path = '/beers?ibu_gt='.$ibuMin.'&ibu_lt='.$ibuMax;
+        try {
+            $response = $this->client->request('GET', $this->endpoint.$path);
+
+            if ($response->getStatusCode() >= 400)
+                throw new \Exception('Erreur');
+
             return json_decode($response->getContent());
         } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
             return $e->getMessage();
