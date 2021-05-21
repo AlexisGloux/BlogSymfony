@@ -48,6 +48,7 @@ composer require validator
 composer require asset
 composer require security
 composer require translation
+composer require httpclient
 ```
 
 ### Documentation
