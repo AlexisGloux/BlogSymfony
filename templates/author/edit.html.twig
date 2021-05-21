@@ -18,6 +18,13 @@
                     {% endfor %}
                     {{ include('author/_form.html.twig', {'button_label': 'Enregistrer'}) }}
                 </div>
+                <div class="col-md-8 m-auto">
+                    {{ form_start(password_form) }}
+                    {{ form_errors(password_form) }}
+                    {{ form_widget(password_form.password) }}
+                    <button class="btn btn-primary">Mettre à jour</button>
+                    {{ form_end(password_form) }}
+                </div>
             </div>
         </div>
     </div>

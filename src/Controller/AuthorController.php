@@ -6,13 +6,18 @@ namespace App\Controller;
 
 use App\Entity\Author;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\AuthorType;
+use App\Form\PasswordType;
 use App\Repository\AuthorRepository;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class AuthorController
@@ -109,6 +114,13 @@ class AuthorController extends AbstractController
     public function edit(Request $request, Author $author): Response
     {
         $form = $this->createForm(AuthorType::class, $author);
+        $passwordForm = $this->createForm(PasswordType::class, [], [
+            'action' => $this->generateUrl('author_password', [
+                'id' => $author->getUser()->getId(),
+            ]),
+            'method' => 'PUT',
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,8 +138,52 @@ class AuthorController extends AbstractController
         return $this->render('author/edit.html.twig', [
             'author' => $author,
             'form' => $form->createView(),
+            'password_form' => $passwordForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/{id}/password", name="author_password", methods="PUT")
+     * @param User $user
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param EntityManagerInterface $manager
+     * @param AuthorRepository $authorRepository
+     * @return Response
+     */
+    public function changePassword(
+        User $user,
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        EntityManagerInterface $manager,
+        AuthorRepository $authorRepository
+    ): Response {
+        $passwordForm = $this->createForm(PasswordType::class, [], [
+            'action' => $this->generateUrl('author_password', [
+                'id' => $user->getId(),
+            ]),
+            'method' => 'PUT',
+        ]);
+
+        $passwordForm->handleRequest($request);
+
+        if ($passwordForm->isValid()) {
+            $newPassword = $passwordForm->get('password')->getData();
+            $user->setPassword($encoder->encodePassword($user, $newPassword));
+            $manager->flush();
+
+            $this->addFlash('success', 'mot de passe changé');
+        } else {
+            foreach ($passwordForm->getErrors(true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
+        return $this->redirectToRoute('author_edit', [
+            'id' => $authorRepository->findOneBy(['user' => $user])->getId(),
+        ]);
+    }
+
 
     public function stat(PostRepository $postRepository): Response
     {
