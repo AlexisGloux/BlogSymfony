@@ -12,6 +12,7 @@ use App\Form\PasswordType;
 use App\Repository\AuthorRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,6 +61,7 @@ class AuthorController extends AbstractController
      * @Route("/post/{id}", name="post_show", requirements={"id":"\d+"})
      * @param Post $post
      * @return Response
+     * @Cache(expires="tomorrow", public=true, )
      */
     public function showPost(Post $post): Response
     {
@@ -69,9 +71,18 @@ class AuthorController extends AbstractController
 //        if (!$post)
 //            throw $this->createNotFoundException('Article '.$id.' non trouvé');
 
-        return $this->render('post/show.html.twig', [
+        $response = $this->render('post/show.html.twig', [
             'post' => $post,
         ]);
+
+        // Gestion du cache :
+        // Possibilité 1 : Annotation @Cache()
+        // Possibilité 2 : retravailler l'objet de réponse avant le de le return (ex ci-dessous)
+        $response->setExpires(new \DateTime('+2 days'));
+        $response->setPublic();
+        $response->headers->addCacheControlDirective('no-store');
+
+        return $response;
     }
 
     /**
