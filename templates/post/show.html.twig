@@ -19,8 +19,8 @@
 
                     {# Traduction d'un chaine comportant des variables #}
                     <p class="">{{ 'post.show.written_by' | trans({
-                            '%name%': post.writtenBy.name,
-                            '%date%': post.createdAt.date | date("d/m/Y"),
+                            'name': post.writtenBy.name,
+                            'date': post.createdAt.date | date("d/m/Y"),
                         }) }}
                     </p>
 
@@ -28,7 +28,7 @@
 
 
                     <hr>
-                    <p>Mots clés :
+                    <p>{{ 'post.field.keywords.label' | trans }} :
                         {% for keyword in post.keywords %}
                             {{ keyword.name }} ({{ keyword.posts | length }}){% if not loop.last %}, {% endif %}
                         {% endfor %}

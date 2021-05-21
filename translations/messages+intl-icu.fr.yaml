@@ -12,7 +12,14 @@ post:
         success: Post ajouté avec succès
 
     show:
-        written_by: Écrit par %name%, le %date%
+        written_by: Écrit par {name}, le {date}
+
+    stat: >-
+        {count, plural,
+            =0 {Aucun article n'a été publié jusqu'à présent}
+            one {Il existe un unique article}
+            other {Il existe # articles}
+        }
 
     field:
         title:
