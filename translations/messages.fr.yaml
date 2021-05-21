@@ -1,5 +1,15 @@
 #post.new.sucess: Post ajouté avec succès     #Syntaxe en ligne, ci dessous syntaxe avec les clés (si les clé sont séparé par un '.' dans le php)
 
 post:
-  new:
-    success: Post ajouté avec succès
+    new:
+        success: Post ajouté avec succès
+
+    field:
+        title:
+            label: Titre
+        body:
+            label: Contenu
+        keywords:
+            label: Mots-clés
+        name:
+            label: Nom du mot clé
