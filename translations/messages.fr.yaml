@@ -1,8 +1,18 @@
 #post.new.sucess: Post ajouté avec succès     #Syntaxe en ligne, ci dessous syntaxe avec les clés (si les clé sont séparé par un '.' dans le php)
 
+app:
+    action:
+        back: Retour
+        edit: Editer
+
+
+
 post:
     new:
         success: Post ajouté avec succès
+
+    show:
+        written_by: Écrit par %name%, le %date%
 
     field:
         title:
