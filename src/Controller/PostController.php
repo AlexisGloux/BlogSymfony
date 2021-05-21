@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class PostController
@@ -43,7 +44,7 @@ class PostController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request, AuthorRepository $authorRepository): Response
+    public function new(Request $request, AuthorRepository $authorRepository, TranslatorInterface $translator): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post, [
@@ -63,7 +64,7 @@ class PostController extends AbstractController
                 $entityManager->persist($post);
                 $entityManager->flush();
 
-                $this->addFlash('success','Post ajouté avec succès'.' ('.$post->getTitle().')');
+                $this->addFlash('success',$translator->trans('post.new.success').' ('.$post->getTitle().')');
                 return $this->redirectToRoute('post_index');
             } catch (\Exception $e) {
                 $this->addFlash('error',$e->getMessage());

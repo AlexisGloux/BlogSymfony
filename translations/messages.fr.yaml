@@ -1,0 +1,5 @@
+#post.new.sucess: Post ajouté avec succès     #Syntaxe en ligne, ci dessous syntaxe avec les clés (si les clé sont séparé par un '.' dans le php)
+
+post:
+  new:
+    success: Post ajouté avec succès
