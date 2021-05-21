@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\client\PunkApiClient;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\AuthorRepository;
@@ -122,6 +123,18 @@ class PostController extends AbstractController
 
         return $this->render('post/search.html.twig', [
             'posts' => $postSearcher->search($keywordName)
+        ]);
+    }
+
+    /**
+     * @Route("/api", name="post_api")
+     * @return Response
+     */
+    public function httpClient(PunkApiClient $client): Response
+    {
+
+        return $this->render('post/api.html.twig', [
+            'content' => $client->random(),
         ]);
     }
 
