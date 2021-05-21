@@ -61,15 +61,21 @@ class AuthorController extends AbstractController
      * @Route("/post/{id}", name="post_show", requirements={"id":"\d+"})
      * @param Post $post
      * @return Response
-     * @Cache(expires="tomorrow", public=true, )
+     * @Cache(expires="tomorrow", public=true)
      */
-    public function showPost(Post $post): Response
+    public function showPost(Post $post, Request $request): Response
     {
-//        $post = $postRepository->findOneBy(['id' => $id]);
-//
-//        // Si l'id du post n'existe pas -> err 404
-//        if (!$post)
-//            throw $this->createNotFoundException('Article '.$id.' non trouvé');
+        // Optimisation des requetes http avec les Etag
+        // https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/ETag
+        $eTag = md5($post->getBody());
+        $response = new Response();
+        $response->setEtag($eTag);
+        if ($response->isNotModified($request))
+            return $response;
+
+        $response->setContent($this->renderView('post/show.html.twig', [
+            'post' => $post,
+        ]));
 
         $response = $this->render('post/show.html.twig', [
             'post' => $post,
@@ -80,7 +86,7 @@ class AuthorController extends AbstractController
         // Possibilité 2 : retravailler l'objet de réponse avant le de le return (ex ci-dessous)
         $response->setExpires(new \DateTime('+2 days'));
         $response->setPublic();
-        $response->headers->addCacheControlDirective('no-store');
+//        $response->headers->addCacheControlDirective('no-store');
 
         return $response;
     }
